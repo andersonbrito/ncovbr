@@ -1,0 +1,97 @@
+{
+  "title": "Vigilância genômica do SARS-CoV-2 no Brasil (últimas 8 semanas)",
+  "build_url": "https://github.com/andersonbrito/ncovbr",
+  "maintainers": [
+    {"name": "Anderson Brito (ITpS)",
+     "url": "https://www.itau.com.br/relacoes-com-investidores/show.aspx?idMateria=Th1NeegLGMnWl4dx29xJBQ==&linguagem=pt"}
+  ],
+  "colorings": [
+    {
+      "key": "pango_lineage",
+      "title": "Linhagem",
+      "type": "categorical"
+    },
+    {
+      "key": "category",
+      "title": "Variante (OMS)",
+      "type": "categorical"
+    },
+    {
+      "key": "region",
+      "title": "Região",
+      "type": "categorical"
+    },
+    {
+      "key": "country",
+      "title": "País",
+      "type": "categorical"
+    },
+    {
+      "key": "br_region",
+      "title": "Regiões do Brasil",
+      "type": "categorical"
+    },
+    {
+      "key": "division",
+      "title": "Estado",
+      "type": "categorical"
+    },
+    {
+      "key": "location",
+      "title": "Município",
+      "type": "categorical"
+    },
+    {
+      "key": "author",
+      "title": "Autores",
+      "type": "categorical"
+    },
+    {
+      "key": "originating_lab",
+      "title": "Laboratório de origem",
+      "type": "categorical"
+    },
+    {
+      "key": "submitting_lab",
+      "title": "Laboratório remetente",
+      "type": "categorical"
+    },
+    {
+      "key": "epiweek",
+      "title": "Semana epidemiológica",
+      "type": "categorical"
+    }
+  ],
+  "geo_resolutions": [
+    "location",
+    "division",
+    "country",
+    "region"
+  ],
+  "display_defaults": {
+    "color_by": "division",
+    "distance_measure": "num_date",
+    "geo_resolution": "division",
+    "map_triplicate": true,
+    "branch_label": "clade"
+  },
+  "filters": [
+    "epiweek",
+    "category",
+    "pango_lineage",
+    "location",
+    "division",
+    "br_region",
+    "country",
+    "region",
+    "author",
+    "originating_lab",
+    "submitting_lab"
+  ],
+  "panels": [
+    "tree",
+    "map",
+    "entropy",
+    "frequencies"
+  ]
+}
