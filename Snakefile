@@ -20,7 +20,7 @@ options = rules.options.params
 # Define file names
 rule files:
 	params:
-		original_dataset = "pre-analyses/provision.fasta",
+		original_dataset = "pre-analyses/gisaid_hcov-19.fasta",
 		new_genomes = "pre-analyses/new_genomes.fasta",
 		full_metadata = "pre-analyses/metadata_nextstrain.tsv",
 		lab_metadata = "pre-analyses/sequencing_metadata.xlsx",
