@@ -170,7 +170,7 @@ if __name__ == '__main__':
 
     # nextstrain metadata
     dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t', dtype='str')
-    dfN.insert(4, 'iso', '')
+    dfN.insert(4, 'code', '')
     dfN.insert(1, 'category', '')
     dfN.fillna('', inplace=True)
 
@@ -293,7 +293,7 @@ if __name__ == '__main__':
 
             # set the strain name
             dict_row['strain'] = strain
-            dict_row['iso'] = get_iso(dict_row['country'])
+            dict_row['code'] = get_iso(dict_row['country'])
             dict_row['originating_lab'] = dfL.loc[idx, 'originating_lab']
             dict_row['submitting_lab'] = 'Lab name'
             dict_row['authors'] = 'Group members'
@@ -343,7 +343,7 @@ if __name__ == '__main__':
                 if dict_row[level_exposure] in ['', None]:
                     dict_row[level_exposure] = dict_row[level]
 
-            dict_row['iso'] = get_iso(dict_row['country'])
+            dict_row['code'] = get_iso(dict_row['country'])
             dict_row['epiweek'] = get_epiweeks(date)
             found.append(strain)
 

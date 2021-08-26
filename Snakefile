@@ -1,7 +1,7 @@
 rule all:
 	input:
-		auspice = "auspice/ncov_br_update.json",
-		frequencies = "auspice/ncov_br_update_tip-frequencies.json"
+		auspice = "auspice/ncovbr_update.json",
+		frequencies = "auspice/ncovbr_update_tip-frequencies.json"
 
 # Triggers the pre-analyses
 rule preanalyses:

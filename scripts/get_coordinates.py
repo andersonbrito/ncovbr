@@ -31,7 +31,7 @@ if __name__ == '__main__':
     # cache = path + 'cache_coordinates.tsv'
     # output = path + 'latlongs.tsv'
 
-    force_coordinates = {'Amazonas BR': ('-4.554482, -64.339883')}
+    force_coordinates = {'Amazonas BR': ('-4.554482', '-64.339883')}
 
     results = {trait: {} for trait in columns}  # content to be exported as final result
 

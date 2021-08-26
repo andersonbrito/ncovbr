@@ -80,7 +80,8 @@ if __name__ == '__main__':
 
     # open metadata file as dataframe
     dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t', dtype=str)
-    dfN = dfN[['region', 'country', 'division', 'location', 'update']]
+    df = dfN
+    dfN = dfN[['region', 'country', 'division', 'location']]
 
     ordered_regions = {}
     dcountries = {}
@@ -313,16 +314,7 @@ if __name__ == '__main__':
         # print(rgb)
         return RGB_to_hex(rgb)
 
-    dfN['update'].fillna('X', inplace=True)
-    list_updates = [up_number for up_number in sorted(set(dfN['update'].to_list())) if up_number != 'X']
-    list_hex = list([hue_to_rgb(int(x)) for x in np.linspace(30, 240, len(list_updates)*2, endpoint=True)])
-    skip_hex = [h for n, h in enumerate(list_hex) if n in range(0, len(list_hex), 2)]
-
     results = {trait: {} for trait in columns}
-    results['update'] = {}
-    for update, hex in zip(list_updates, skip_hex):
-        results['update'].update({update: hex})
-        print(update, hex)
 
 
 
@@ -439,19 +431,39 @@ if __name__ == '__main__':
                 if id not in geoLevels:
                     geoLevels[id] = members
 
-
-    categories = {'Other region': '#FFFFFF', 'North America': '#ABABAB', 'Europe': '#666666',
-                  'Northern South America': '#1f3d7a', 'Western South America': '#7a1f1f', 'Southern South America': '#5cadd6',
-                  'Central America': '#6c7a1f', 'Caribbean': '#2eb8a1', 'Mexico': '#7a4d1f',
-                  'Brazil-North': '#1f7a2e', 'Brazil-Northeast': '#b8732e', 'Brazil-Center West': '#d65cad',
-                  'Brazil-Southeast': '#4c1f7a', 'Brazil-South': '#d6c25c'
-                  }
+    categories = {'Other region': '#CCCCCC'}
     results['subregion'] = {}
+    brregion_hues = {
+        'Brazil-North': colour_scale['green'][0],
+        'Brazil-Northeast': colour_scale['yellow'][1],
+        'Brazil-Center West': colour_scale['red'][0],
+        'Brazil-Southeast': colour_scale['purple'][3],
+        'Brazil-South': colour_scale['cyan'][0]
+        }
+
+    for subregion, hue in brregion_hues.items():
+        start, end = hue_to_hex[hue]
+        divisions = geoLevels[subregion]
+        gradient = linear_gradient(start, end, len(divisions))
+        # print(subregion, hue, divisions, gradient)
+        for state, colour in zip(divisions, gradient):
+            categories[state] = colour
 
     for reg, hex in categories.items():
         results['subregion'].update({reg: hex})
         print('subregion', reg, hex)
-        # print('')
+
+    # VOC / VOI
+    list_category = [up_number for up_number in sorted(set(df['category'].to_list())) if up_number != 'Other variants']
+    list_hex = list([hue_to_rgb(int(x)) for x in np.linspace(30, 240, len(list_category)*2, endpoint=True)])
+    skip_hex = [h for n, h in enumerate(list_hex) if n in range(0, len(list_hex), 2)][::-1]
+
+    results['category'] = {'Other variants': '#808080'}
+    for category, hex in zip(list_category, skip_hex):
+        results['category'].update({category: hex})
+        print(category, hex)
+
+
 
 
     ''' EXPORT COLOUR FILE '''

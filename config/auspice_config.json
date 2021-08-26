@@ -3,62 +3,62 @@
   "build_url": "https://github.com/andersonbrito/ncovbr",
   "maintainers": [
     {"name": "Anderson Brito (ITpS)",
-     "url": "https://www.itau.com.br/relacoes-com-investidores/show.aspx?idMateria=Th1NeegLGMnWl4dx29xJBQ==&linguagem=pt"}
+     "url": "https://andersonbrito.github.io/"}
   ],
   "colorings": [
     {
       "key": "pango_lineage",
-      "title": "Linhagem",
+      "title": "Lineage",
       "type": "categorical"
     },
     {
       "key": "category",
-      "title": "Variante (OMS)",
+      "title": "WHO variant",
       "type": "categorical"
     },
     {
       "key": "region",
-      "title": "Região",
+      "title": "Region",
       "type": "categorical"
     },
     {
       "key": "country",
-      "title": "País",
+      "title": "Country",
       "type": "categorical"
     },
     {
-      "key": "br_region",
-      "title": "Regiões do Brasil",
+      "key": "subregion",
+      "title": "Regions of Brazil",
       "type": "categorical"
     },
     {
       "key": "division",
-      "title": "Estado",
+      "title": "State",
       "type": "categorical"
     },
     {
       "key": "location",
-      "title": "Município",
+      "title": "Location",
       "type": "categorical"
     },
     {
       "key": "author",
-      "title": "Autores",
+      "title": "Authors",
       "type": "categorical"
     },
     {
       "key": "originating_lab",
-      "title": "Laboratório de origem",
+      "title": "Originating Lab",
       "type": "categorical"
     },
     {
       "key": "submitting_lab",
-      "title": "Laboratório remetente",
+      "title": "Submitting Lab",
       "type": "categorical"
     },
     {
       "key": "epiweek",
-      "title": "Semana epidemiológica",
+      "title": "Epidemiological Week",
       "type": "categorical"
     }
   ],
@@ -69,7 +69,7 @@
     "region"
   ],
   "display_defaults": {
-    "color_by": "division",
+    "color_by": "subregion",
     "distance_measure": "num_date",
     "geo_resolution": "division",
     "map_triplicate": true,
@@ -81,7 +81,7 @@
     "pango_lineage",
     "location",
     "division",
-    "br_region",
+    "subregion",
     "country",
     "region",
     "author",
