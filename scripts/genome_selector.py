@@ -32,16 +32,14 @@ if __name__ == '__main__':
 
 
 
-    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/ncov_variants/nextstrain/runX_20210630_fromGISAID/'
+    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/ncov_pango/nextstrain/run3_20210721_B1526newaugur/'
     # import os
     # os.chdir(path)
-    # metadata = path + 'pre-analyses/metadata_gisaid.tsv'
-    # keep = 'config/keep.txt'
+    # metadata = path + 'pre-analyses/metadata_nextstrain.tsv'
+    # keep = 'config/keep_short.txt'
     # remove = None
-    # scheme = path + 'config/subsampling_scheme.tsv'
+    # scheme = path + 'config/subsampling_scheme_time.tsv'
     # report = path + 'report.tsv'
-    # output = path + 'selected_strains.txt'
-
 
 
     today = time.strftime('%Y-%m-%d', time.gmtime())
@@ -54,7 +52,7 @@ if __name__ == '__main__':
 
     # subsampling scheme
     dfS = pd.read_csv(scheme, encoding='utf-8', sep='\t', dtype=str)
-
+    dfS['sample_size'] = dfS['sample_size'].astype(int)
     results = {'strain': {}, 'gisaid_epi_isl': {}}
 
     ### IGNORING SAMPLES
@@ -86,7 +84,7 @@ if __name__ == '__main__':
     for column, names in ignore.items():
         dfN = dfN[~dfN[column].isin(names)]
 
-    print('* Removing unwanted samples, if any is listed...')
+    print('\n* Removing unwanted samples, if any is listed...')
     # drop rows listed in remove.txt
     if remove == None:
         to_remove = []
@@ -97,7 +95,7 @@ if __name__ == '__main__':
     # prevent samples already selected in keep.txt from being resampled
     dfN = dfN[~dfN['strain'].isin(to_keep)]
 
-    print('* Dropping sequences with incomplete date...')
+    print('\n* Dropping sequences with incomplete date...')
     # drop rows with incomplete dates
     dfN = dfN[dfN['date'].apply(lambda x: len(x.split('-')) == 3)] # accept only full dates
     dfN = dfN[dfN['date'].apply(lambda x: 'X' not in x)] # exclude -XX-XX missing dates
@@ -107,85 +105,77 @@ if __name__ == '__main__':
     dfN = dfN.sort_values(by='date')  # sorting lines by date
     start, end = dfN['date'].min(), today
 
-    print('* Assigning epiweek column...')
+    print('\n* Assigning epiweek column...')
     # get epiweek end date, create column
     dfN['date'] = pd.to_datetime(dfN['date'], errors='coerce')
     dfN['epiweek'] = dfN['date'].apply(lambda x: Week.fromdate(x, system="cdc").enddate())
 
 
     ## SAMPLE FOCAL AND CONTEXTUAL SEQUENCES
-    print('* Loading sampling scheme...')
+    print('\n* Filtering based on sampling scheme...')
     purposes = ['focus', 'context']
     subsamplers = [] # list of focal and contextual categories
     for category in purposes:
         query = {} # create a dict for each 'purpose'
-        for idx, val in dfS.loc[dfS['purpose'] == category, 'value'].to_dict().items():
-            key = dfS.iloc[idx]['filter']
-            if key not in query.keys():
-                query[key] = [val]
-            else:
-                query[key].append(val)
-            if query not in subsamplers:
-                subsamplers.append(query)
+        for idx, value1 in dfS.loc[dfS['purpose'] == category, 'value'].to_dict().items():
+            print('\n > Filter #' + str(idx))
 
-    print('* Performing genome selection...')
-    # perform subsampling
-    for scheme_dict in subsamplers:
-        # print(scheme_dict)
-        # group by level
-        for level, names in scheme_dict.items():
-            # create dictionary for level
+            filter1 = dfS.iloc[idx]['filter']
+            print('    Filtering by ' + filter1 + ': ' + value1)
+            # create dictionary for filter1
             for id in results.keys():
-                if level not in results[id]:
-                    results[id][level] = {}
+                if filter1 not in results[id]:
+                    results[id][filter1] = {}
+                if value1 not in results[id][filter1].keys():
+                    results[id][filter1][value1] = []
 
-            for id in results.keys():
-                for name in names:
-                    # add place name as key in its corresponding level in dict
-                    if name not in results[id][level].keys():
-                        results[id][level][name] = []
+            # keep only data that match filter1
+            dfFilter = dfN[dfN[filter1].isin([value1])]
 
-            glevel = dfN.groupby(level)
-            for name, dfLevel in glevel:
-                if name in names: # check if name is among focal places
-                    # apply secondary filtering, if any exists
-                    if dfS.loc[dfS['value'] == name, 'filter2'].values[0] not in [None, np.nan]:
-                        filter2 = dfS.loc[dfS['value'] == name, 'filter2'].values[0]
-                        value2 = dfS.loc[dfS['filter2'] == filter2, 'value2'].values[0]
-                        dfLevel = dfLevel[dfLevel[filter2].isin([value2])]
+            filter2 = dfS.iloc[idx]['filter2']
+            value2 = dfS.iloc[idx]['value2']
+            if value2 not in [None, np.nan]:
+                print('\t    - Also filtering by ' + filter2 + ': ' + value2)
+                dfFilter = dfFilter[dfFilter[filter2].isin([value2])]
 
-                    # define new temporal boundaries, if provided
-                    min_date, max_date = start, end
-                    new_start = dfS.loc[dfS['value'] == name, 'start'].values[0]
-                    new_end = dfS.loc[dfS['value'] == name, 'end'].values[0]
-                    if not pd.isna(new_start):
-                        min_date = new_start
-                    if not pd.isna(new_end):
-                        max_date = new_end
+            # define new chronological boundaries, if provided
+            min_date, max_date = start, end
+            new_start = dfS.iloc[idx]['start']
+            new_end = dfS.iloc[idx]['end']
+            if not pd.isna(new_start):
+                min_date = new_start
+                print('\t    - Applying start time filter: ' + min_date)
+            if not pd.isna(new_end):
+                max_date = new_end
+                print('\t    - Applying end time filter: ' + max_date)
 
-                    # drop any row with dates outside the start/end dates
-                    mask = (dfLevel['date'] > min_date) & (dfLevel['date'] <= max_date)
-                    dfLevel = dfLevel.loc[mask]  # apply mask
+            # drop any row with dates outside the start/end dates
+            mask = (dfFilter['date'] >= min_date) & (dfFilter['date'] <= max_date)
+            dfFilter = dfFilter.loc[mask]  # apply mask
+            # print(dfFilter[['strain', 'date']])
 
-                    gEpiweek = dfLevel.groupby('epiweek')
-                    # print(dfS.loc[dfS['value'] == name, 'size'])
-                    sample_size = int(dfS.loc[dfS['value'] == name, 'sample_size'])
-                    total_genomes = dfLevel[level].count()
-                    for epiweek, dfEpiweek in gEpiweek:
-                        bin_pool = dfEpiweek['epiweek'].count() # genomes in bin
-                        sampled = int(np.ceil((bin_pool/total_genomes) * sample_size)) # proportion sampled from bin
-                        # print(epiweek, '-', sampled, '/', bin_pool)
-                        if sampled > bin_pool: # if # requested samples higher than available genomes, get all
-                            sampled = bin_pool
+            gEpiweek = dfFilter.groupby('epiweek')
+            sample_size = dfS.iloc[idx]['sample_size']
+            total_genomes = dfFilter[filter1].count()
+            # print(total_genomes, sample_size)
 
-                        # selector
-                        random_subset = dfEpiweek.sample(n=sampled)
-                        for id in results.keys():
-                            selected = random_subset[id].to_list()
-                            results[id][level][name] = results[id][level][name] + selected
+            drop_now = []
+            for epiweek, dfEpiweek in gEpiweek:
+                bin_pool = dfEpiweek['epiweek'].count() # genomes in bin
+                sampled = int(np.ceil((bin_pool/total_genomes) * sample_size)) # proportion sampled from bin
+                if sampled > bin_pool: # if requested amount is higher than available genomes, get all
+                    sampled = bin_pool
 
-                    # drop pre-selected samples to prevent duplicates
-                    dfN = dfN[~dfN[level].isin([name])]
+                # genome selector
+                random_subset = dfEpiweek.sample(n=sampled)
+                for id in results.keys():
+                    selected = random_subset[id].to_list()
+                    results[id][filter1][value1] = results[id][filter1][value1] + selected
+                    if id == 'gisaid_epi_isl':
+                        drop_now = drop_now + selected
+
+            # drop pre-selected samples to prevent duplicates
+            dfN = dfN[~dfN['gisaid_epi_isl'].isin(drop_now)]
 
     ### EXPORT RESULTS
     print('\n\n# Genomes sampled per category in subsampling scheme\n')
@@ -206,11 +196,11 @@ if __name__ == '__main__':
     genome_count = ''
     for id in results.keys():
         genome_count = 0
-        for level, name in results[id].items():
-            for place, entries in name.items():
-                if len(entries) > 1:
+        for filter1, name in results[id].items():
+            for value, entries in name.items():
+                if len(entries) > 0:
                     genome_count += len(entries)
-                    entry = str(len(entries)) + '\t' + place + ' (' + level + ')'
+                    entry = str(len(entries)) + '\t' + value + ' (' + filter1 + ')'
                     if entry not in reported:
                         print('\t' + entry)
                     if report != None and entry not in reported:
@@ -229,8 +219,8 @@ if __name__ == '__main__':
     not_found = []
     if len(to_keep) > 0:
         print('\t- ' + str(len(to_keep)) + ' genome(s) added from pre-selected list\n')
-        outfile_names.write('\n# Pre-existing genomes listed in keep.txt\n')
-        outfile_accno.write('\n# Pre-existing genomes listed in keep.txt\n')
+        outfile_names.write('\n# Pre-selected genomes listed in keep.txt\n')
+        outfile_accno.write('\n# Pre-selected genomes listed in keep.txt\n')
         for genome in to_keep:
             if genome not in exported:
                 outfile_names.write(genome + '\n')
@@ -258,7 +248,7 @@ if __name__ == '__main__':
                         outfile2.write(entry + '\n')
 
     if len(not_found) > 0:
-        print('\n# ' + str(len(not_found)) + ' out of ' + str(len(to_keep)) + ' pre-existing genomes(s) were not found:')
+        print('\n# ' + str(len(not_found)) + ' out of ' + str(len(to_keep)) + ' pre-selected genomes(s) were not found:')
         for name in not_found:
             print('\t- ' + name)
 
