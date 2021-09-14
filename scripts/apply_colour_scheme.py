@@ -28,8 +28,8 @@ if __name__ == '__main__':
     columns = args.columns
     output = args.output
 
-    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/github/latamvoc/'
-    # metadata = path + 'pre-analyses/metadata_geo.tsv'
+    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/run3_20210825_itps0/'
+    # metadata = path + 'data/metadata.tsv'
     # coordinates = path + 'config/latlongs.tsv'
     # geoscheme = path + 'config/geoscheme.tsv'
     # grid = path + 'config/colour_grid.html'
@@ -293,7 +293,7 @@ if __name__ == '__main__':
                 hue = continent_hues[area][position] # colour picker
                 palette[subarea] = hue
                 # print(subarea, hue)
-    print(colour_wheel)
+
     # print(sampled_region)
     # print(palette)
     for region in sampled_region:
@@ -342,7 +342,6 @@ if __name__ == '__main__':
             else:
                 if division not in division_colours[reference_countries[country]]:
                     division_colours[reference_countries[country]].append(division)
-
 
     # assign locations to divisions
     location_colours = {}
@@ -426,13 +425,13 @@ if __name__ == '__main__':
             type = line.split('\t')[0]
 
             # parse subnational regions for countries in geoscheme
-            if type == 'subregion':
-                members = [item.strip() for item in line.split('\t')[5].split(',')] # elements inside the subarea
+            if type == 'country':
+                members = [item.strip() for item in line.split('\t')[5].split(',') if item.strip() in dfN['division'].tolist()] # elements inside the subarea
                 if id not in geoLevels:
                     geoLevels[id] = members
 
-    categories = {'Other region': '#CCCCCC'}
-    results['subregion'] = {}
+    categories = {'Other regions': '#CCCCCC'}
+    results['br_region'] = {}
     brregion_hues = {
         'Brazil-North': colour_scale['green'][0],
         'Brazil-Northeast': colour_scale['yellow'][1],
@@ -440,7 +439,7 @@ if __name__ == '__main__':
         'Brazil-Southeast': colour_scale['purple'][3],
         'Brazil-South': colour_scale['cyan'][0]
         }
-
+        
     for subregion, hue in brregion_hues.items():
         start, end = hue_to_hex[hue]
         divisions = geoLevels[subregion]
@@ -450,8 +449,8 @@ if __name__ == '__main__':
             categories[state] = colour
 
     for reg, hex in categories.items():
-        results['subregion'].update({reg: hex})
-        print('subregion', reg, hex)
+        results['br_region'].update({reg: hex})
+        print('br_region', reg, hex)
 
     # VOC / VOI
     list_category = [up_number for up_number in sorted(set(df['category'].to_list())) if up_number != 'Other variants']
