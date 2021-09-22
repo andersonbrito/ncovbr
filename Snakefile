@@ -1,7 +1,7 @@
 rule all:
 	input:
-		auspice = "auspice/ncovbr_update.json",
-		frequencies = "auspice/ncovbr_update_tip-frequencies.json"
+		auspice = "auspice/ncovbr_vigilancia.json",
+		frequencies = "auspice/ncovbr_vigilancia_tip-frequencies.json"
 
 # Triggers the pre-analyses
 rule preanalyses:
@@ -30,6 +30,7 @@ rule files:
 		ignore = "config/remove.txt",
 		reference = "config/reference.gb",
 		geoscheme = "config/geoscheme.tsv",
+		variants = "config/who_variants.tsv",
 		colour_grid = "config/colour_grid.html",
 		clades = "config/clades.tsv",
 		auspice_config = "config/auspice_config.json",
@@ -97,7 +98,8 @@ rule filter_metadata:
 	input:
 		genomes = rules.add_sequences.output.sequences,
 		metadata1 = files.full_metadata,
-		metadata2 = rules.merge_metadata.output.merged_metadata
+		metadata2 = rules.merge_metadata.output.merged_metadata,
+		variants = files.variants
 	params:
 		filter = "tag1 tag2"
 	output:
@@ -109,6 +111,7 @@ rule filter_metadata:
 			--genomes {input.genomes} \
 			--metadata1 {input.metadata1} \
 			--metadata2 {input.metadata2} \
+			--variants {input.variants} \
 			--filter {params.filter} \
 			--output1 {output.filtered_metadata} \
 			--output2 {output.sequences}
@@ -393,7 +396,7 @@ rule traits:
 	output:
 		node_data = "results/traits.json",
 	params:
-		columns = "region"
+		columns = "br_region"
 	shell:
 		"""
 		augur traits \
@@ -436,7 +439,7 @@ rule tip_frequencies:
     log:
         "results/tip_frequencies.txt"
     params:
-        min_date = 2020.9167,
+        min_date = 2021.5,
         pivot_interval = 1,
         pivot_interval_units = "weeks",
         narrow_bandwidth = 0.01,

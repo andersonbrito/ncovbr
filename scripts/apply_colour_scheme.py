@@ -7,17 +7,16 @@ import pycountry
 from matplotlib import cm
 import numpy as np
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description="Generate ordered colour file for nextstrain build",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument("--metadata", required=True, help="Reformatted nextstrain metadata file")
-    parser.add_argument("--coordinates", required=True,  help="TSV coordinates file being used in the build")
+    parser.add_argument("--coordinates", required=True, help="TSV coordinates file being used in the build")
     parser.add_argument("--geoscheme", required=True, help="TSV file with geographic scheme")
     parser.add_argument("--grid", required=True, help="HTML file with HEX colour matrices")
-    parser.add_argument("--columns", nargs='+', type=str,   help="list of columns with geographic information")
+    parser.add_argument("--columns", nargs='+', type=str, help="list of columns with geographic information")
     parser.add_argument("--output", required=True, help="TSV file containing ordered HEX colours based on locations")
     args = parser.parse_args()
 
@@ -28,14 +27,13 @@ if __name__ == '__main__':
     columns = args.columns
     output = args.output
 
-    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/run3_20210825_itps0/'
-    # metadata = path + 'data/metadata.tsv'
+    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/run5_20210920_template/'
+    # metadata = path + 'pre-analyses/metadata_geo.tsv'
     # coordinates = path + 'config/latlongs.tsv'
     # geoscheme = path + 'config/geoscheme.tsv'
     # grid = path + 'config/colour_grid.html'
     # columns = ['region', 'country', 'division', 'location']
-    # output = path + 'config/colors.tsv'
-
+    # output = path + 'colors.tsv'
 
     # pre-determined HEX colours and hues
     force_colour = {}
@@ -46,6 +44,8 @@ if __name__ == '__main__':
 
     # get ISO alpha3 country codes
     isos = {}
+
+
     def get_iso(country):
         global isos
         if country not in isos.keys():
@@ -68,13 +68,12 @@ if __name__ == '__main__':
                 trait, place, lat, long = line.strip().split('\t')
                 if trait in latlongs.keys():
                     entry = {place: (str(lat), str(long))}
-                    latlongs[trait].update(entry) # save as pre-existing result
+                    latlongs[trait].update(entry)  # save as pre-existing result
                 else:
-                    print('### WARNING! ' + trait + ' is not among the pre-selected columns with geographic information!')
+                    print(
+                        '### WARNING! ' + trait + ' is not among the pre-selected columns with geographic information!')
             except:
                 pass
-
-
 
     ''' REORDER LOCATIONS FOR LEGEND FORMATTING '''
 
@@ -111,8 +110,6 @@ if __name__ == '__main__':
                         if country_name not in dcountries[region_name].keys():
                             dcountries[region_name].update({country_name: latlongs[country][country_name]})
 
-
-
     # sort division entries based on sorted country entries
     ordered_countries = {}
     for region, countries in dcountries.items():
@@ -135,13 +132,10 @@ if __name__ == '__main__':
                         if division_name not in ddivisions[country_name].keys():
                             ddivisions[country_name].update({division_name: latlongs[division][division_name]})
 
-
     # sort division entries based on sorted country entries
     ordered_divisions = {}
     for country, divisions in ddivisions.items():
         ordered_divisions[country] = {k: v for k, v in sorted(divisions.items(), key=lambda item: item[1])}
-
-
 
     dlocations = {}
     for division_index in [key for dict_ in ordered_divisions.values() for key in dict_]:
@@ -165,9 +159,8 @@ if __name__ == '__main__':
     for division, locations in dlocations.items():
         ordered_locations[division] = {k: v for k, v in sorted(locations.items(), key=lambda item: item[1])}
 
-
-
     ''' CONVERT RGB TO HEX COLOURS '''
+
 
     # original source: https://bsou.io/posts/color-gradients-with-python
 
@@ -178,6 +171,7 @@ if __name__ == '__main__':
         RGB = [int(x) for x in RGB]
         return "#" + "".join(["0{0:x}".format(v) if v < 16 else
                               "{0:x}".format(v) for v in RGB])
+
 
     def hex_to_RGB(hex):
         ''' "#FFFFFF" -> [255,255,255] '''
@@ -190,6 +184,7 @@ if __name__ == '__main__':
           colors in RGB and hex form for use in a graphing function
           defined later on '''
         return [RGB_to_hex(RGB) for RGB in gradient]
+
 
     # create gradient
     def linear_gradient(start_hex, finish_hex, n):
@@ -215,8 +210,6 @@ if __name__ == '__main__':
         return color_dict(RGB_list)
 
 
-
-
     ''' IMPORT GEOSCHEME '''
 
     # xml = BS(open(geoscheme, "r").read(), 'xml')
@@ -236,7 +229,6 @@ if __name__ == '__main__':
                         geodata[continent] = [region]
                     else:
                         geodata[continent] += [region]
-
 
     ''' IMPORT COLOUR SCHEME '''
 
@@ -272,7 +264,6 @@ if __name__ == '__main__':
         hex = (hexdark, hexligth)
         hue_to_hex[hue_value] = hex
 
-
     colour_scale = {'magenta': [320], 'purple': [310, 300, 290, 280, 270, 260],
                     'blue': [250, 240, 230, 220], 'cyan': [210, 200, 190, 180], 'turquoise': [170, 160, 150],
                     'green': [140, 130, 120], 'yellowgreen': [110, 100, 90, 80, 70],
@@ -288,9 +279,10 @@ if __name__ == '__main__':
         num_subareas = len(subareas)
         hues = len(continent_hues[area])
         print(area, subareas)
-        for position, subarea in zip([int(x) for x in np.linspace(0, int(hues), num_subareas, endpoint=False)], subareas):
+        for position, subarea in zip([int(x) for x in np.linspace(0, int(hues), num_subareas, endpoint=False)],
+                                     subareas):
             if subarea not in palette.keys():
-                hue = continent_hues[area][position] # colour picker
+                hue = continent_hues[area][position]  # colour picker
                 palette[subarea] = hue
                 # print(subarea, hue)
 
@@ -302,8 +294,8 @@ if __name__ == '__main__':
         else:
             colour_wheel[region] = hue_to_hex[palette[region]]
 
-
     ''' SET COLOUR SCHEME FOR UPDATES '''
+
 
     # convert a hue value into an rgb colour, and then hex colour
     def hue_to_rgb(hue):
@@ -314,9 +306,8 @@ if __name__ == '__main__':
         # print(rgb)
         return RGB_to_hex(rgb)
 
+
     results = {trait: {} for trait in columns}
-
-
 
     ''' APPLY SAME HUE FOR MEMBERS OF THE SAME SUB-CONTINENT '''
 
@@ -328,7 +319,6 @@ if __name__ == '__main__':
         for country in countries:
             reference_countries[country] = region
             country_colours[region] = countries
-
 
     # assign divisions to countries
     division_colours = {}
@@ -354,8 +344,6 @@ if __name__ == '__main__':
             else:
                 if location not in location_colours[reference_divisions[division]]:
                     location_colours[reference_divisions[division]].append(location)
-
-
 
     ''' CREATE COLOUR GRADIENT '''
     # define gradients for regions
@@ -415,7 +403,6 @@ if __name__ == '__main__':
             print('location', location, colour)
             results['location'].update({location: colour})
 
-
     # special colouring
     geoLevels = {}
     for line in scheme_list:
@@ -426,7 +413,8 @@ if __name__ == '__main__':
 
             # parse subnational regions for countries in geoscheme
             if type == 'country':
-                members = [item.strip() for item in line.split('\t')[5].split(',') if item.strip() in dfN['division'].tolist()] # elements inside the subarea
+                members = [item.strip() for item in line.split('\t')[5].split(',') if
+                           item.strip() in dfN['division'].tolist()]  # elements inside the subarea
                 if id not in geoLevels:
                     geoLevels[id] = members
 
@@ -438,8 +426,8 @@ if __name__ == '__main__':
         'Brazil-Center West': colour_scale['red'][0],
         'Brazil-Southeast': colour_scale['purple'][3],
         'Brazil-South': colour_scale['cyan'][0]
-        }
-        
+    }
+
     for subregion, hue in brregion_hues.items():
         start, end = hue_to_hex[hue]
         divisions = geoLevels[subregion]
@@ -452,17 +440,67 @@ if __name__ == '__main__':
         results['br_region'].update({reg: hex})
         print('br_region', reg, hex)
 
+
     # VOC / VOI
-    list_category = [up_number for up_number in sorted(set(df['category'].to_list())) if up_number != 'Other variants']
-    list_hex = list([hue_to_rgb(int(x)) for x in np.linspace(30, 240, len(list_category)*2, endpoint=True)])
-    skip_hex = [h for n, h in enumerate(list_hex) if n in range(0, len(list_hex), 2)][::-1]
+    who_variants = [variant for variant in sorted(set(df['who_variant'].to_list())) if variant != 'Outras variantes']
+    variant_lineages = [variant for variant in sorted(set(df['variant_lineage'].to_list())) if variant != 'Outras variantes']
 
-    results['category'] = {'Other variants': '#808080'}
-    for category, hex in zip(list_category, skip_hex):
-        results['category'].update({category: hex})
-        print(category, hex)
+    variant_dict = {}
+    for var_name in who_variants:
+        if var_name not in variant_dict:
+            variant_dict[var_name] = []
+            print(var_name)
+        for varlin in variant_lineages:
+            who_var = varlin.split('(')[0].strip()
+            # pango = varlin.split('(')[1].strip()[:-1]
+            if who_var in variant_dict:
+                if varlin not in variant_dict[who_var]:
+                    variant_dict[who_var].append(varlin)
+
+    variant_hues = {
+        'Alpha': 320, # magentas
+        'Beta': 280, # purples
+        'Gamma': 220, # blues
+        'Delta': 0, # reds
+        'Lambda': 180, #cyans
+        'Mu': 120, # greens
+        'Eta': 100, # yellowgreens
+        'Iota': 70, # yellowgreens
+        'Kappa': 40 # reds
+        }
+
+    who_hex = {'Outras variantes': '#808080'}
+    lin_hex = {'Outras variantes': '#808080'}
+
+    variant_variables = ['who_variant', 'variant_lineage']
+    for category in variant_variables:
+        for variant, hue in variant_hues.items():
+            start, end = hue_to_hex[hue]
+            if variant in variant_dict:
+                if category == 'who_variant':
+                    list_variants = [variant]
+                else:
+                    list_variants = variant_dict[variant]
+
+                gradient = linear_gradient(start, end, len(list_variants))
+                for item, colour in zip(list_variants, gradient):
+                    if category == 'who_variant':
+                        who_hex[item] = colour
+                    else:
+                        lin_hex[item] = colour
 
 
+    results['who_variant'] = {}
+    results['variant_lineage'] = {}
+    for category in variant_variables:
+        if category == 'who_variant':
+            dicthex = who_hex
+        else:
+            dicthex = lin_hex
+
+        for cat, hex in dicthex.items():
+            results[category].update({cat: hex})
+            print(category, cat, hex)
 
 
     ''' EXPORT COLOUR FILE '''

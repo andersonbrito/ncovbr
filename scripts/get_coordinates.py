@@ -2,7 +2,6 @@
 import pandas as pd
 from geopy.geocoders import Nominatim
 import argparse
-from bs4 import BeautifulSoup as BS
 import numpy as np
 
 geolocator = Nominatim(user_agent="email@gmail.com")  # add your email here
@@ -25,10 +24,11 @@ if __name__ == '__main__':
     cache = args.cache
     output = args.output
 
-    # metadata = path + 'metadata_geo.tsv'
-    # geoscheme = path + "geoscheme.tsv"
+    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/run5_20210920_template/'
+    # metadata = path + 'pre-analyses/metadata_geo.tsv'
+    # geoscheme = path + "config/geoscheme.tsv"
     # columns = ['region', 'country', 'division', 'location']
-    # cache = path + 'cache_coordinates.tsv'
+    # cache = path + 'config/cache_coordinates.tsv'
     # output = path + 'latlongs.tsv'
 
     force_coordinates = {'Amazonas BR': ('-4.554482', '-64.339883')}

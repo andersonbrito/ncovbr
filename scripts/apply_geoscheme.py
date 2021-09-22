@@ -21,7 +21,7 @@ if __name__ == '__main__':
     geoscheme = args.geoscheme
     output = args.output
 
-    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/github/latamvoc/'
+    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/run5_20210920_template/'
     # metadata = path + 'pre-analyses/metadata_filtered.tsv'
     # geoscheme = path + 'config/geoscheme.tsv'
     # output = path + 'pre-analyses/metadata_geo.tsv'
@@ -64,12 +64,6 @@ if __name__ == '__main__':
                     if state.strip() not in geoLevels.keys():
                         geoLevels[state.strip()] = id
 
-            # parse subareas for states in geoscheme
-            if type == 'location':
-                for zipcode in members:
-                    if zipcode.strip() not in geoLevels.keys():
-                        geoLevels[zipcode.strip()] = id
-
             for elem in members:
                 if elem.strip() not in geoLevels.keys():
                     geoLevels[elem.strip()] = id
@@ -81,56 +75,43 @@ if __name__ == '__main__':
     except:
         pass
     dfN['region'] = dfN['code'].map(geoLevels) # add 'column' region in metadata
-    dfN['subregion'] = ''
+    dfN['br_region'] = ''
 
     # convert sets of locations into sub-locations
     print('\nApplying geo-schemes...')
-    custom_geolevels = {}
-    for line in scheme_list:
-        if not line.startswith('\n'):
-            line = line.strip()
-            id = line.split('\t')[2]
-            type = line.split('\t')[0]
-            members = line.split('\t')[5].split(',')  # elements inside the subarea
-
-            if type == 'subregion':
-                for country in members:
-                    country = country.strip()
-                    custom_geolevels[country] = id
-
     dfN.fillna('', inplace=True)
+
     for idx, row in dfN.iterrows():
         country = dfN.loc[idx, 'country']
+
+        # assign BR region
+        if country not in ['Brazil']:
+            dfN.loc[idx, 'br_region'] = 'Other regions'
+
+        if country == 'Brazil' and dfN.loc[idx, 'br_region'] == '':
+            dfN.loc[idx, 'br_region'] = dfN.loc[idx, 'division']
+
+        # divide country into subnational regions
         division = dfN.loc[idx, 'division']
-        region = dfN.loc[idx, 'region']
+        if division not in ['', 'unknown']:
+            if division in geoLevels.keys():
+                dfN.loc[idx, 'country'] = geoLevels[dfN.loc[idx, 'division']]
 
-        # assign sub region
-        if region not in ['Central America', 'South America', 'Caribbean']:
-            # print(country, region)
+        print('Processing metadata for... ' + row['strain'])
 
-            if 'Europe' in dfN.loc[idx, 'region']:
-                dfN.loc[idx, 'subregion'] = 'Europe'
-            if 'North America' in dfN.loc[idx, 'region']:
-                dfN.loc[idx, 'subregion'] = 'North America'
-            else:
-                if dfN.loc[idx, 'subregion'] == '':
-                    dfN.loc[idx, 'subregion'] = 'Other region'
+        # country = dfN.loc[idx, 'country']
+        # division = dfN.loc[idx, 'division']
+        #
+        # if country == 'Brazil':
+        #     if division not in ['', None]:
+        #         dfN.loc[idx, 'country'] = custom_geolevels[division]
+        #         dfN.loc[idx, 'br_region'] = division
+        #     else:
+        #         division = 'Unknown'
+        #         dfN.loc[idx, 'country'] =custom_geolevels[division]
+        # else:
+        #     dfN.loc[idx, 'br_region'] = 'Other regions'
 
-        if region in ['Central America', 'South America', 'Caribbean'] and dfN.loc[idx, 'subregion'] == '':
-            if country == 'Brazil':
-                if division in custom_geolevels.keys():
-                    dfN.loc[idx, 'subregion'] = custom_geolevels[division]
-                else:
-                    dfN.loc[idx, 'subregion'] = 'Other region'
-                    print('\t- ' + division + ' not found in geoscheme.')
-            else:
-                if country in custom_geolevels.keys():
-                    dfN.loc[idx, 'subregion'] = custom_geolevels[country]
-                else:
-                    dfN.loc[idx, 'subregion'] = 'Other region'
-                    print('\t- ' + country + ' not found in geoscheme.')
-        print(dfN.loc[idx, 'subregion'], country, division)
-    # print(custom_geolevels)
 
     dfN = dfN.drop_duplicates(subset=['strain'])
     dfN.to_csv(output, sep='\t', index=False)

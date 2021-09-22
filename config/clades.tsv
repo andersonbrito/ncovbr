@@ -1,6 +1,4 @@
 clade	gene	site	alt
-A	ORF8	84	S
-
 B.1	ORF1b	314	L
 B.2	ORF3a	251	V
 
@@ -16,11 +14,10 @@ Gamma (P.1)	ORF1a	1188	L
 Gamma (P.1)	ORF1b	1264	D
 Gamma (P.1)	S	501	Y
 
-Delta (B.1.617.2)	M	82	T
-Delta (B.1.617.2)	N	63	G
-Delta (B.1.617.2)	ORF7a	120	I
-Delta (B.1.617.2)	ORF9b	60	A
-Delta (B.1.617.2)	S	19	R
+Delta (B.1.617.2)	ORF1a	1306	S
+Delta (B.1.617.2)	ORF1a	2046	L
+Delta (B.1.617.2)	ORF1b	1918	V
+Delta (B.1.617.2)	ORF7b	40	I
 
 Eta (B.1.525)	E	21	F
 Eta (B.1.525)	N	12	G
@@ -39,20 +36,7 @@ Lambda (C.37)	S	452	Q
 Lambda (C.37)	S	490	S
 Lambda (C.37)	nuc	23031	C
 
-Epsilon (B.1.427/B.1.429)	ORF1a	265	I
-Epsilon (B.1.427/B.1.429)	ORF1a	4295	V
-Epsilon (B.1.427/B.1.429)	S	13	I
-Epsilon (B.1.427/B.1.429)	S	152	C
-Epsilon (B.1.427/B.1.429)	S	614	G
-Epsilon (B.1.427/B.1.429)	N	205	I
-
-B.1.617	nuc	210	T
-B.1.617	nuc	27638	C
-B.1.617	ORF7a	82	A
-
-B.1.617.3	N	67	S
-B.1.617.3	ORF1a	2344	V
-B.1.617.3	ORF1a	2648	I
-B.1.617.3	ORF8	26	I
-
-
+Mu (B.1.621)	ORF1a	1055	A
+Mu (B.1.621)	ORF1b	1342	S
+Mu (B.1.621)	S	95	I
+Mu (B.1.621)	S	145	N
