@@ -353,6 +353,7 @@ division	Falcon	11.277598000000001	-69.58309157886714
 division	Wales	52.2928116	-3.73893
 division	Masvingo	-20.307118600000003	30.88137696875768
 division	Zimbabwe	-18.4554963	29.7468414
+division	Brazil	-10.3333333	-53.2
 
 location	Rio Branco BR	-9.9477922	-67.8675706
 location	Arapiraca	-9.754866	-36.661471
@@ -1033,4 +1034,175 @@ location	King County	47.4873376	-121.8622122
 location	Whatcom County	48.8107819	-121.8828175
 location	Lewis County WA	46.533242	-122.579707
 location	Milwaukee County	43.0349931	-87.922497
+location	Novo Lino	-8.941905	-35.664001
+location	Branquinha	-9.2478057	-36.0152009
+location	Presidente Figueiredo	-2.0486359	-60.0236658
+location	Parintins	-2.6344567	-56.7319324
+location	Cruz Das Almas	-12.6722649	-39.1053665
+location	Malhada	-14.3379191	-43.7716651
+location	Lauro de Freitas	-12.89242	-38.3127691
+location	Barreiras	-12.1440031	-44.9967406
+location	Prado	-17.336357	-39.222721
+location	Morada Nova	-5.1076699	-38.3727852
+location	Limoeiro do Norte	-5.1455607	-38.0984936
+location	Jeronimo Monteiro	-20.7882214	-41.3921464
+location	Aragarcas	-15.8957166	-52.2514538
+location	Abadia de Goias	-16.790014	-49.45988311055673
+location	Cristalina	-16.7680599	-47.6133427
+location	Bela Vista de Goias	-16.9692949	-48.9513071
+location	Santa Fe de Goias	-15.7705927	-51.1018204
+location	Palma BR	-17.5983328	-44.7317086
+location	Imbe de Minas	-19.5989453	-41.9694294
+location	Pedras de Maria Da Cruz	-15.605833	-44.391944
+location	Montes Claros	-16.7273538	-43.8717676
+location	Desterro do Melo	-21.1460033	-43.518329
+location	Uberlandia	-18.9188041	-48.2767837
+location	Uberlândia	-18.9188041	-48.2767837
+location	Rondonopolis	-16.4603533	-54.6397099
+location	Fatima do Sul	-22.3750499	-54.516698
+location	Campo Grande	-20.4640173	-54.6162947
+location	Nova Alvorada do Sul	-21.4587274	-54.3760634
+location	Varzea Grande	-15.645816	-56.132218
+location	Cuiaba	-15.5986686	-56.0991301
+location	Pedras de Fogo	-7.3988977	-35.112176
+location	Caturite	-7.4199652	-36.0207132
+location	Teixeira	-7.221036	-37.252477
+location	Pedra Lavrada	-6.7562744	-36.4673179
+location	Guarabira	-6.8513982	-35.4915582
+location	Juazeirinho	-7.0688282	-36.5803059
+location	Agua Branca	-7.5151046	-37.6394034
+location	Alcantil	-7.7425491	-36.0609604
+location	Araruna (Paraiba)	-6.5335394	-35.7458
+location	Bayeux	-7.1301631	-34.936532
+location	Junco do Serido	-6.991929	-36.7137661
+location	Monte Horebe	-7.214284	-38.5857578
+location	Pombal	-6.7711315	-37.7988646
+location	Santa Rita BR	-7.1304647	-34.9357375
+location	Sao Jose de Piranhas	-7.1198508	-38.4991347
+location	Lucena	-6.8984018	-34.8711915
+location	Conde	-7.2600359	-34.9053524
+location	Areia	-6.9680243	-35.6994783
+location	Pitimbu	-7.4728063	-34.811233
+location	Cubati	-6.8647974	-36.3525993
+location	Sao Joao do Rio do Peixe	-6.7291053	-38.4478745
+location	Alagoa Grande	-7.0415212	-35.6285322
+location	Olivedos	-6.991036	-36.2437286
+location	Sao Joao do Tigre	-8.078237	-36.849141
+location	Cabaceiras	-7.4899156	-36.2860501
+location	Esperanca	-7.018517	-35.852193
+location	Dormentes	-8.441163	-40.766168
+location	Ponta Grossa	-25.0891685	-50.1601812
+location	Apucarana	-23.5525327	-51.4610764
+location	Nova Prata do Iguacu	-25.5869205	-53.38538212966377
+location	Santa Terezinha de Itaipu	-25.4390809	-54.4019902
+location	Paraiso do Norte	-23.2592405	-52.62964676771626
+location	Pranchita	-25.97308195	-53.724952495
+location	Foz do Iguacu	-25.5401479	-54.5858139
+location	Terra Roxa	-24.18920045	-54.06150511210666
+location	Marialva	-23.4820987	-51.795788
+location	Sao Jose Dos Pinhais	-25.533816	-49.2072163
+location	Ivaipora	-24.2433517	-51.6719268
+location	Antonina	-25.4298854	-48.7125431
+location	Pinhalao	-23.8645	-50.0869375
+location	Ouro Verde do Oeste	-24.79787695	-53.890572055
+location	Cambara	-23.042273	-50.075281
+location	Santo Antonio do Sudoeste	-26.0727118	-53.725556
+location	Cianorte	-23.662036	-52.6103989
+location	Rancho Alegre	-23.06439825	-50.93060869184964
+location	Marechal Candido Rondon	-24.5582532	-54.0587821
+location	Ivatuba	-23.58733815	-52.159662253977345
+location	Assis Chateaubriand	-24.4054826	-53.5120468
+location	Pato Branco	-26.2295984	-52.6712474
+location	Alto Paraiso	-23.5155	-53.831923295454544
+location	Morretes	-25.4770051	-48.8321911
+location	Castro BR	-24.5004507	-49.8982962
+location	Rolandia	-23.3119901	-51.3674145
+location	Loanda	-22.9320944	-53.1352452
+location	Centenario do Sul	-22.79248055	-51.557661214604806
+location	Pinheiral	-22.5129436	-44.001435
+location	Sao Jose de Mipibu	-6.0746867	-35.2370184
+location	Nisia Floresta	-6.0902674	-35.2085026
+location	Canguaretama	-6.3751942	-35.137463
+location	Jucurutu	-6.0343518	-37.0186249
+location	Santa Cruz (Rio Grande do Norte)	-6.682461	-36.63327583939849
+location	Equador	-6.89071355	-36.66447219982531
+location	Mossoro	-5.1904332	-37.3443872
+location	Santo Angelo	-28.3000481	-54.2669971
+location	Parobe	-29.624257	-50.83118
+location	Parai	-28.5947801	-51.786409806614756
+location	Gravatai	-29.9440222	-50.9930938
+location	Alegrete	-29.7650623	-55.749651098559056
+location	Cidreira	-30.1377419	-50.28353033624213
+location	Tapes	-30.6747721	-51.3986199
+location	Barra do Ribeiro	-30.36655625	-51.313824322299226
+location	Bage	-31.3314264	-54.1062808
+location	Joacaba	-27.1737204	-51.5065214
+location	Seara	-27.1528578	-52.3096985
+location	Dionisio Cerqueira	-26.2604681	-53.6346379
+location	Schroeder	-26.35959485	-49.06803211925988
+location	Balneario Barra do Sul	-26.459842	-48.6061471
+location	Biguacu	-27.4961277	-48.6542432
+location	Garuva	-26.062181799999998	-48.878858420828266
+location	Jaguaruna	-28.6237365	-49.0288664
+location	Rio Negrinho	-26.4485355	-49.614594738461534
+location	Rio do Oeste	-27.193267	-49.7984595
+location	Major Gercino	-27.42150775	-49.024851410045656
+location	Itaiopolis	-26.3391899	-49.9071983
+location	Canelinha	-27.2660341	-48.7666708
+location	Chapadao do Lageado	-27.58674845	-49.556252159546155
+location	Aguas Mornas	-27.7450443	-48.94107524476096
+location	Pescaria Brava	-28.407984550000002	-48.882846828275376
+location	Nova Veneza	-28.698683199999998	-49.574702497143306
+location	Maracaja	-28.862625350000002	-49.46756252722222
+location	Abelardo Luz	-26.5705893	-52.3280339
+location	Pinhalzinho	-26.852586	-52.9872478
+location	Coronel Freitas	-26.88062815	-52.712775887981024
+location	Ipuacu	-26.691000000000003	-52.46989772727272
+location	Xanxere	-26.87954065	-52.38511975357143
+location	Xaxim	-26.9605363	-52.5335505
+location	Campo Ere	-26.459	-53.14341176470588
+location	Guatambu	-27.11231665	-52.78082612686907
+location	Brusque	-27.0964628	-48.9136323
+location	Nova Trento	-27.3	-49.047673439872526
+location	Petrolandia	-27.5329615	-49.6984597
+location	Aurora	-27.3303876	-49.586579567600545
+location	Herval D'Oeste	-27.17361	-51.4903659
+location	Itabaianinha	-11.2760142	-37.78666
+location	Itaporanga Dajuda	-10.9961671	-37.3045841
+location	Maruim	-10.7372604	-37.0817469
+location	Porto Da Folha	-9.9152762	-37.2791369
+location	Pirambu	-10.7408558	-36.8591248
+location	Borebi	-22.5700178	-48.9714871
+location	Itu	-23.2638828	-47.298892
+location	Salto BR	-22.7156077	-47.32457800833333
+location	Nova Odessa	-22.783186	-47.294059
+location	Sao Jose Dos Campos	-23.1860383	-45.8866816
+location	Juquia	-24.3172209	-47.6355618
+location	Boa Esperanca do Sul	-21.9930206	-48.3917372
+location	Rincao	-21.5881095	-48.0724258
+location	Americo Brasiliense	-21.7297099	-48.1052092
+location	Gaviao Peixoto	-21.8377536	-48.492853
+location	Bofete	-23.1019554	-48.2610535
+location	Tres Fronteiras	-20.234355	-50.890528
+location	Santa Fe do Sul	-20.2106188	-50.9270837
+location	Sao Francisco	-20.3604438	-50.696603
+location	Jales	-20.2671767	-50.5492435
+location	Urupes	-21.2027026	-49.2921996
+location	Novo Horizonte	-21.4674564	-49.2235377
+location	Suzano	-23.5427842	-46.3108391
+location	Taboao Da Serra	-23.6121912	-46.7790539
+location	Guaira	-20.3245873	-48.3148818
+location	Colina	-20.711443	-48.53867
+location	Bebedouro	-20.949077	-48.479083
+location	Arealva	-22.0301906	-48.9111936
+location	Itaju	-21.9816841	-48.8046536
+location	Pederneiras	-22.351086	-48.778113
+location	Matao	-21.6033611	-48.3660603
+location	Palmas	-10.1837852	-48.3336423
+location	Gurupi	-11.72794	-49.068046
+location	Novo Acordo	-9.964658	-47.6762804
+location	Miracema do Tocantins	-9.5617939	-48.3966536
+location	Arraias	-12.9287788	-46.9437231
+location	Miranorte	-9.529068	-48.592222
+location	Itapiratins	-8.3832116	-48.1054968
 

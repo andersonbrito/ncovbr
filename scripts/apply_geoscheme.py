@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
         # assign BR region
         if country not in ['Brazil']:
-            dfN.loc[idx, 'br_region'] = 'Other regions'
+            dfN.loc[idx, 'br_region'] = 'Outras regiões'
 
         if country == 'Brazil' and dfN.loc[idx, 'br_region'] == '':
             dfN.loc[idx, 'br_region'] = dfN.loc[idx, 'division']
@@ -98,20 +98,6 @@ if __name__ == '__main__':
                 dfN.loc[idx, 'country'] = geoLevels[dfN.loc[idx, 'division']]
 
         print('Processing metadata for... ' + row['strain'])
-
-        # country = dfN.loc[idx, 'country']
-        # division = dfN.loc[idx, 'division']
-        #
-        # if country == 'Brazil':
-        #     if division not in ['', None]:
-        #         dfN.loc[idx, 'country'] = custom_geolevels[division]
-        #         dfN.loc[idx, 'br_region'] = division
-        #     else:
-        #         division = 'Unknown'
-        #         dfN.loc[idx, 'country'] =custom_geolevels[division]
-        # else:
-        #     dfN.loc[idx, 'br_region'] = 'Other regions'
-
 
     dfN = dfN.drop_duplicates(subset=['strain'])
     dfN.to_csv(output, sep='\t', index=False)

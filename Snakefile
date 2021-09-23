@@ -396,7 +396,7 @@ rule traits:
 	output:
 		node_data = "results/traits.json",
 	params:
-		columns = "br_region"
+		columns = "br_region variant_lineage"
 	shell:
 		"""
 		augur traits \
@@ -439,7 +439,7 @@ rule tip_frequencies:
     log:
         "results/tip_frequencies.txt"
     params:
-        min_date = 2021.5,
+        min_date = 2021.563,
         pivot_interval = 1,
         pivot_interval_units = "weeks",
         narrow_bandwidth = 0.01,
