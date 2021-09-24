@@ -13,23 +13,10 @@ Gamma (P.1)	ORF1a	1188	L
 Gamma (P.1)	ORF1b	1264	D
 Gamma (P.1)	S	501	Y
 
-Delta (B.1.617.2)	ORF1a	1306	S
-Delta (B.1.617.2)	ORF1a	2046	L
-Delta (B.1.617.2)	ORF1b	1918	V
+Delta (B.1.617.2)	N	215	C
+Delta (B.1.617.2)	ORF1a	2287	S
+Delta (B.1.617.2)	ORF1a	2930	L
 Delta (B.1.617.2)	ORF7b	40	I
-
-Eta (B.1.525)	E	21	F
-Eta (B.1.525)	N	12	G
-Eta (B.1.525)	M	82	T
-
-Iota (B.1.526)	ORF8	11	I
-Iota (B.1.526)	S	95	I
-Iota (B.1.526)	nuc	21846	T
-
-Kappa (B.1.617.1)	ORF1a	1567	I
-Kappa (B.1.617.1)	ORF1b	1129	C
-Kappa (B.1.617.1)	ORF1b	2310	R
-Kappa (B.1.617.1)	ORF1b	2312	A
 
 Lambda (C.37)	S	452	Q
 Lambda (C.37)	S	490	S
