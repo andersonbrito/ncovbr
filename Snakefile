@@ -31,6 +31,7 @@ rule files:
 		reference = "config/reference.gb",
 		geoscheme = "config/geoscheme.tsv",
 		variants = "config/who_variants.tsv",
+		consortia = "config/consortia.tsv",
 		colour_grid = "config/colour_grid.html",
 		clades = "config/clades.tsv",
 		auspice_config = "config/auspice_config.json",
@@ -99,7 +100,8 @@ rule filter_metadata:
 		genomes = rules.add_sequences.output.sequences,
 		metadata1 = files.full_metadata,
 		metadata2 = rules.merge_metadata.output.merged_metadata,
-		variants = files.variants
+		variants = files.variants,
+		consortia = files.consortia
 	params:
 		filter = "tag1 tag2"
 	output:
@@ -112,6 +114,7 @@ rule filter_metadata:
 			--metadata1 {input.metadata1} \
 			--metadata2 {input.metadata2} \
 			--variants {input.variants} \
+			--consortia {input.consortia} \
 			--filter {params.filter} \
 			--output1 {output.filtered_metadata} \
 			--output2 {output.sequences}
@@ -439,7 +442,7 @@ rule tip_frequencies:
     log:
         "results/tip_frequencies.txt"
     params:
-        min_date = 2021.563,
+        min_date = 2021.5795,
         pivot_interval = 1,
         pivot_interval_units = "weeks",
         narrow_bandwidth = 0.01,
@@ -513,7 +516,8 @@ rule reset:
 		"config/colors.tsv",
 		"config/latlongs.tsv",
 		"pre-analyses/metadata_filtered.tsv",
-		"pre-analyses/temp_sequences.fasta"
+		"pre-analyses/temp_sequences.fasta",
+		"pre-analyses/merged_metadata.xlsx"
 
 	shell:
 		"""

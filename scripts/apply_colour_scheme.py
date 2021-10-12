@@ -44,8 +44,6 @@ if __name__ == '__main__':
 
     # get ISO alpha3 country codes
     isos = {}
-
-
     def get_iso(country):
         global isos
         if country not in isos.keys():
@@ -79,6 +77,7 @@ if __name__ == '__main__':
 
     # open metadata file as dataframe
     dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t', dtype=str)
+    dfN.fillna('', inplace=True)
     df = dfN
     dfN = dfN[['region', 'country', 'division', 'location']]
 
@@ -278,7 +277,6 @@ if __name__ == '__main__':
     for area, subareas in geodata.items():
         num_subareas = len(subareas)
         hues = len(continent_hues[area])
-        print(area, subareas)
         for position, subarea in zip([int(x) for x in np.linspace(0, int(hues), num_subareas, endpoint=False)],
                                      subareas):
             if subarea not in palette.keys():
@@ -450,7 +448,6 @@ if __name__ == '__main__':
     for var_name in who_variants:
         if var_name not in variant_dict:
             variant_dict[var_name] = []
-            print(var_name)
         for varlin in variant_lineages:
             who_var = varlin.split('(')[0].strip()
             # pango = varlin.split('(')[1].strip()[:-1]
@@ -459,8 +456,8 @@ if __name__ == '__main__':
                     variant_dict[who_var].append(varlin)
 
     variant_hues = {
-        'Alpha': 30, # magentas
-        'Beta': 60, # purples
+        'Alpha': 40, # magentas
+        'Beta': 80, # purples
         'Gamma': 220, # blues
         'Delta': 0, # reds
         'Lambda': 180, #cyans

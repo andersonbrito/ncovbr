@@ -55,8 +55,8 @@ if __name__ == '__main__':
     set_countries = []
     for line in scheme_list:
         if not line.startswith('\n'):
-            type = line.split('\t')[0]
-            if type in columns:
+            category = line.split('\t')[0]
+            if category in columns:
                 coordinates = {}
                 try:
                     subarea = line.split('\t')[2]  # name of the pre-defined area in the TSV file
@@ -65,11 +65,11 @@ if __name__ == '__main__':
                     entry = {subarea: (lat, long)}
                     coordinates.update(entry)
 
-                    if subarea not in results[type]:
-                        results[type].update(coordinates)
+                    if subarea not in results[category]:
+                        results[category].update(coordinates)
                         dont_search.append(subarea)
                     country_name = subarea.split('-')[0]
-                    if type == 'country' and country_name not in set_countries:
+                    if category == 'country' and country_name not in set_countries:
                         set_countries.append(country_name)
                 except:
                     pass
@@ -89,6 +89,7 @@ if __name__ == '__main__':
 
     # open metadata file as dataframe
     dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t')
+    dfN.fillna('', inplace=True)
 
     queries = []
     pinpoints = [dfN[trait].values.tolist() for trait in columns if trait != 'region']
@@ -115,12 +116,8 @@ if __name__ == '__main__':
                 new_query = []
                 for name in place:
                     if name not in dont_search:
-                        if place[0] == 'USA':
-                            if name != 'USA':
-                                name = name + ' state'
                         if name not in new_query:
                             new_query.append(name)
-
                 item = (trait, ', '.join(new_query))
                 coord = ('NA', 'NA')
                 if item not in not_found:

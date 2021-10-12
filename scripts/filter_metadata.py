@@ -132,6 +132,8 @@ if __name__ == '__main__':
     # nextstrain metadata
     dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t', dtype='str')
     dfN = dfN.rename(columns={'pangolin_lineage': 'pango_lineage'})
+    dfN['strain'] = dfN['strain'].str.replace('hCoV-19/', '')
+
     new_columns = ['code', 'who_variant', 'variant_lineage']
     for col in new_columns:
         if col in dfN.columns.tolist():
@@ -352,6 +354,8 @@ if __name__ == '__main__':
             outputDF = outputDF.append(dict_row, ignore_index=True)
 
     outputDF = outputDF.drop(columns=['region'])
+    outputDF['date'] = pd.to_datetime(outputDF['date']).dt.floor('d')
+#     outputDF['date'] = outputDF['date'].str.replace(' 00:00:00', '')
     outputDF.to_csv(output1, sep='\t', index=False)
 
     # write sequence file
