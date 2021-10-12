@@ -354,6 +354,12 @@ division	Wales	52.2928116	-3.73893
 division	Masvingo	-20.307118600000003	30.88137696875768
 division	Zimbabwe	-18.4554963	29.7468414
 division	Brazil	-10.3333333	-53.2
+division	Sao Paulo	-23.5506507	-46.6333824
+division	Goias	-15.9323662	-50.1392928
+division	Parana	-24.4842187	-51.8148872
+division	Ceara	-5.3264703	-39.7156073
+division	Maranhao	-5.2085503	-45.3930262
+division	Amazonas	-4.479925	-63.5185396
 
 location	Rio Branco BR	-9.9477922	-67.8675706
 location	Arapiraca	-9.754866	-36.661471
@@ -1205,4 +1211,188 @@ location	Miracema do Tocantins	-9.5617939	-48.3966536
 location	Arraias	-12.9287788	-46.9437231
 location	Miranorte	-9.529068	-48.592222
 location	Itapiratins	-8.3832116	-48.1054968
+location	Rio Preto Da Eva	-2.6990647	-59.7012494
+location	Itacare	-14.2781298	-38.9951418
+location	Nazaré	-13.0345586	-39.0062515
+location	Palmacia	-4.1478012	-38.8460317
+location	Sao Simao (Goiás)	-18.9887701	-50.543241
+location	Jaragua	-15.7528866	-49.3344033
+location	Alto Paraiso de Goias	-14.16212315	-47.64824178160604
+location	Santo Antonio do Leverger	-15.8644521	-56.0765226
+location	Paragominas	-2.99564	-47.3548942
+location	Petrolandia (Pernambuco)	-8.9663282	-38.22168130922864
+location	Feira Nova	-7.9481471	-35.3871681
+location	Itaiba	-8.94675	-37.421188
+location	Francisco Beltrao	-26.0790979	-53.0533527
+location	Boa Esperanca do Iguacu	-25.6341442	-53.2361418505134
+location	Lucrecia	-6.10503205	-37.83313240727045
+location	Rolante	-29.6527945	-50.5769391
+location	Tres Coroas	-29.5155023	-50.7770635
+location	Uruguaiana	-29.7560726	-57.0867546
+location	Xangri-la	-29.81071085	-50.07575287634015
+location	Imbituba	-28.21266315	-48.70388651811699
+location	Canoinhas	-26.1755121	-50.3949592
+location	Ponte Alta	-27.416443	-50.31735517071418
+location	Sul Brasil	-26.698121800000003	-52.93863143932266
+location	Treze Tilias	-26.9390854	-51.48899987402537
+location	Boquim	-11.1450175	-37.6204228
+location	Uru	-21.7846064	-49.2819702
+location	Morro Agudo	-20.7276692	-48.052795
+location	Agudos	-22.4719836	-48.9884476
+location	Cunha	-23.07753	-44.9567436
+location	Sumare	-22.8217964	-47.267105
+location	Sao Bernardo do Campo	-23.7080345	-46.5506747
+location	Taiacu	-21.143144	-48.511203
+location	Borborema	-21.6212706	-49.074135
+location	Mogi Mirim	-22.433009	-46.9581629
+location	Presidente Venceslau	-21.877116	-51.8451047
+location	Botucatu	-22.8879628	-48.4410712
+location	Araçatuba	-21.207992	-50.4390225
+location	Votorantim	-23.5386249	-47.440842
+location	Campinas	-22.90556	-47.06083
+location	Carapicuiba	-23.5234673	-46.8406808
+location	RIO DE JANEIRO	-22.9110137	-43.2093727
+location	Sao Paulo	-23.5506507	-46.6333824
+location	Angra dos Reis	-23.0063966	-44.316326
+location	Tabatinga	-21.7373768	-48.6880522
+location	MACEIO	-9.6476843	-35.7339264
+location	MARECHAL DEODORO	-9.709715	-35.896731
+location	CAMPINA GRANDE	-7.2246743	-35.8771292
+location	TAPEROA	-7.206294	-36.824499
+location	JOAO PESSOA	-7.1215981	-34.882028
+location	ALAGOA NOVA	-7.0653703	-35.76695977336711
+location	BARRA DE SANTANA	-7.5230865	-35.9988518
+location	MATINHAS	-7.1219554	-35.7713426
+location	QUEIMADAS	-7.3640404	-35.9016644
+location	VOLTA REDONDA	-22.5225497	-44.1040128
+location	NOVA FRIBURGO	-22.2800004	-42.5325303
+location	NITEROI	-22.8832371	-43.1154552
+location	PEDRO VELHO	-6.4356	-35.219539
+location	SALGADO DE SAO FELIX	-7.3565372	-35.4381278
+location	NATAL	-5.805398	-35.2080905
+location	RAFAEL FERNANDES	-6.1892485	-38.2238647
+location	PATU	-6.1006213	-37.6385148
+location	ALTO DO RODRIGUES	-5.290868	-36.7616726
+location	SAO GONCALO DO AMARANTE	-5.7932331	-35.3286312
+location	PAU DOS FERROS	-6.1124964	-38.2062628
+location	MESSIAS TARGINO	-6.0772948	-37.511712
+location	PARNAMIRIM	-5.9153334	-35.2679913
+location	GUAMARE	-5.1075611	-36.3195361
+location	Cabo De Santo Agostinho	-8.2838945	-35.0320984
+location	Fernando De Noronha	-3.8545643	-32.37861623300567
+location	Buriti De Goias	-16.180644	-50.4287479
+location	Armacao dos Buzios	-22.7597805	-41.8875267
+location	Tres Rios	-22.1167884	-43.2087226
+location	Macae	-22.3712958	-41.7866922
+location	Sao Pedro da Aldeia	-22.8384835	-42.1031604
+location	Rio Claro	-22.7229997	-44.1359986
+location	Rio das Ostras	-22.5269448	-41.944972
+location	Sao Joao da Barra	-21.6348588	-41.0487079
+location	Rio das Flores	-22.1683478	-43.5858689
+location	Bom Jardim	-22.1515328	-42.4186683
+location	Varre-Sai	-20.9308869	-41.8685772
+location	Campos dos Goytacazes	-21.7558619	-41.3326895
+location	Nilopolis	-22.8080114	-43.4138222
+location	Sao Joao de Meriti	-22.8043744	-43.3724125
+location	Seropedica	-22.7438887	-43.6991998
+location	Itaguai	-22.8629597	-43.775322
+location	Marica	-22.9196772	-42.8184375
+location	Belem	-1.45056	-48.4682453
+location	ARARUAMA	-22.8733203	-42.3428897
+location	PARAIBA DO SUL	-22.1636384	-43.2916915
+location	SANTO ANTONIO DE PADUA	-21.5389992	-42.1799978
+location	SAO PEDRO DA ALDEIA	-22.8384835	-42.1031604
+location	SAO JOSE	-27.6157733	-48.6276491
+location	SCHROEDER	-26.35959485	-49.06803211925988
+location	APARECIDA DE GOIANIA	-16.8226769	-49.2452546
+location	ABADIA DE GOIAS	-16.790014	-49.45988311055673
+location	GOIATUBA	-18.0154577	-49.3640591
+location	MACAPA	0.0401529	-51.0569588
+location	ANAPOLIS	-16.3332828	-48.9525756
+location	BREJO DO CRUZ	-6.330942	-37.488316626886096
+location	CATURITE	-7.4199652	-36.0207132
+location	CONDE	-7.2600359	-34.9053524
+location	GUARABIRA	-6.8513982	-35.4915582
+location	ITABAIANA	-7.331674	-35.331723
+location	JUAZEIRINHO	-7.0688282	-36.5803059
+location	JUNCO DO SERIDO	-6.98788435	-36.764639820188606
+location	POMBAL	-6.7711315	-37.7988646
+location	SANTA RITA	-7.128465	-34.9846186
+location	SANTO ANDRE	-7.2198586	-36.6319767
+location	TEIXEIRA	-7.221036	-37.252477
+location	PORTO GRANDE	0.6145	-51.72361111111111
+location	SANTANA	-0.0307068	-51.1789666
+location	CERES	-15.3103568	-49.6032054
+location	SAO LUIS DE MONTES BELOS	-16.5210639	-50.3726281
+location	AGUA BRANCA	-7.5151046	-37.6394034
+location	ALCANTIL	-7.7425491	-36.0609604
+location	BAYEUX	-7.1301631	-34.936532
+location	CATOLE DO ROCHA	-6.340625	-37.746967
+location	ITAPORANGA	-7.3040747	-38.1505782
+location	LUCENA	-6.8984018	-34.8711915
+location	MONTE HOREBE	-7.214284	-38.5857578
+location	PEDRAS DE FOGO	-7.3988977	-35.112176
+location	SAO BENTO	-6.4859187	-37.4469328
+location	SAO JOSE DE PIRANHAS	-7.1198508	-38.4991347
+location	CAJAZEIRAS	-6.8897849	-38.5570389
+location	CABEDELO	-6.97324	-34.8351609
+location	PEDRA LAVRADA	-6.7562744	-36.4673179
+location	ARARUNA	-6.5321155	-35.7397595
+location	FLORIANOPOLIS	-27.5973002	-48.5496098
+location	CAMPOS DOS GOYTACAZES	-21.7558619	-41.3326895
+location	MAURILANDIA	-18.04279	-50.329919991176475
+location	ARAGARCAS	-15.8957166	-52.2514538
+location	NAVEGANTES	-26.8898813	-48.6495828
+location	BURITI DE GOIAS	-16.180644	-50.4287479
+location	Mafra	-26.1150943	-49.8035982
+location	Campo Alegre	-26.12635975	-49.24949166277
+location	Viana	-20.3914471	-40.4966587
+location	Itaporanga D''ajuda	-10.9961671	-37.3045841
+location	Porto da Folha	-9.9152762	-37.2791369
+location	Sao Joao do Rio Do Peixe	-6.7291053	-38.4478745
+location	Santo Andre	-7.2198586	-36.6319767
+location	Santa Rita	-7.128465	-34.9846186
+location	Cascavel	-24.9554996	-53.4560544
+location	Campo Largo	-25.4597726	-49.5270851
+location	Castro	-24.794072	-49.9972914
+location	Sao Jose dos Pinhais	-25.533816	-49.2072163
+location	Porto Alegre	-30.0324999	-51.2303767
+location	Canoas	-29.9216045	-51.1799525
+location	Macapa	0.0401529	-51.0569588
+location	Santana	-0.0307068	-51.1789666
+location	Caico	-6.4594544	-37.0971911
+location	Nossa Senhora do Socorro	-10.8553115	-37.1264863
+location	Barra dos Coqueiros	-10.9075694	-37.0386249
+location	Aracoiaba	-7.7856903	-35.0898881
+location	Escada	-8.3623847	-35.2366232
+location	Jataúba	-7.9860545	-36.4980118
+location	Lagoa Do Carro	-7.843834	-35.310783
+location	Frei Miguelinho	-7.9342217	-35.89477415253772
+location	Santa Cruz Do Capibaribe	-7.948019	-36.206092
+location	Sao Jose Do Egito	-7.469447	-37.273974
+location	Taquaritinga Do Norte	-7.9027766	-36.0442227
+location	Abadiania	-16.168242499999998	-48.744982059801636
+location	Joviania	-17.8063651	-49.623645
+location	Palmeiras de Goias	-16.8102393	-49.9234165
+location	Sao Mamede	-6.923862	-37.095436
+location	Benjamin Constant	-4.3782748	-70.0290603
+location	Anori	-4.1525	-62.082375
+location	Santa Cruz	-6.224752	-36.019297
+location	Sao Goncalo do Amarante	-5.7932331	-35.3286312
+location	Santo Amaro da Imperatriz	-27.6865324	-48.7769405
+location	Nova Iguaçu	-22.7592175	-43.4508728
+location	Itabaiana	-10.6856197	-37.4270517
+location	Saire	-8.3277815	-35.7094611
+location	Pirenopolis	-15.8501619	-48.957317
+location	Turvania	-16.6120126	-50.1352075
+location	Iranduba	-3.2758203	-60.1867429
+location	Boca do Acre	-8.7553487	-67.3930873
+location	Carauari	-4.8766426	-66.8961433
+location	Itacoatiara	-3.1477898	-58.4461041
+location	Labrea	-7.2613683	-64.7924505
+location	Codajas	-3.8413202	-62.0603444
+location	Urucurituba	-3.1304332	-58.1549157
+location	Sao Sebastiao do Uatuma	-1.8957814499999999	-58.8105218968723
+location	Caetite	-14.0691776	-42.4852428
+location	Rio De Janeiro	-22.9110137	-43.2093727
 

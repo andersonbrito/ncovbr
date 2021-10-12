@@ -442,8 +442,9 @@ if __name__ == '__main__':
 
 
     # VOC / VOI
-    who_variants = [variant for variant in sorted(set(df['who_variant'].to_list())) if variant != 'Outras variantes']
-    variant_lineages = [variant for variant in sorted(set(df['variant_lineage'].to_list())) if variant != 'Outras variantes']
+    dfN.fillna('', inplace=True)
+    who_variants = [variant for variant in sorted(set(df['who_variant'].astype(str).to_list())) if variant not in ['Outras variantes', '']]
+    variant_lineages = [variant for variant in sorted(set(df['variant_lineage'].astype(str).to_list())) if variant not in ['Outras variantes', '']]
 
     variant_dict = {}
     for var_name in who_variants:
@@ -499,9 +500,13 @@ if __name__ == '__main__':
             results[category].update({cat: hex})
             print(category, cat, hex)
 
+    consortia_hex = {'Outras iniciativas': '#808080', 'Rede Corona-ômica': '#CF1F40'}
+    results['consortium'] = {}
+    for cat, hex in consortia_hex.items():
+        results['consortium'].update({cat: hex})
+        print('consortium', cat, hex)
 
     ''' EXPORT COLOUR FILE '''
-
     with open(output, 'w') as outfile:
         for trait, entries in results.items():
             for place, hexcolour in entries.items():

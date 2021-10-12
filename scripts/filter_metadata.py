@@ -12,6 +12,7 @@ from Bio import SeqIO
 import pandas as pd
 from epiweeks import Week
 import time
+from difflib import SequenceMatcher
 import argparse
 
 if __name__ == '__main__':
@@ -23,6 +24,7 @@ if __name__ == '__main__':
     parser.add_argument("--metadata1", required=True, help="Metadata file from NextStrain")
     parser.add_argument("--metadata2", required=False, help="Custom lab metadata file")
     parser.add_argument("--variants", required=True, help="Variant-lineage TSV file")
+    parser.add_argument("--consortia", required=True, help="Lab-Consoritum TSV file")
     parser.add_argument("--filter", required=False, nargs='+', type=str,
                         help="List of filters for tagged rows in lab metadata")
     parser.add_argument("--output1", required=True, help="Filtered metadata file")
@@ -33,15 +35,17 @@ if __name__ == '__main__':
     metadata1 = args.metadata1
     metadata2 = args.metadata2
     variants_list = args.variants
+    consortia_list = args.consortia
     filterby = args.filter
     output1 = args.output1
     output2 = args.output2
 
-    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/run5_20210920_template/'
+    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/run6_20210928_itps3/'
     # genomes = path + 'pre-analyses/temp_sequences.fasta'
     # metadata1 = path + 'pre-analyses/metadata_nextstrain.tsv'
     # metadata2 = path + 'pre-analyses/sequencing_metadata.xlsx'
     # variants_list = path + 'config/who_variants.tsv'
+    # consortia_list = path + 'config/consortia.tsv'
     # filterby = ['caribe', 'test']
     # output1 = path + 'pre-analyses/metadata_filtered.tsv'
     # output2 = path + 'pre-analyses/sequences.fasta'
@@ -55,6 +59,11 @@ if __name__ == '__main__':
         variant, lineage = line.strip().split('\t')
         varlin = variant + ' (' + lineage + ')'
         variants[lineage] = varlin
+
+    consortia = {}
+    for line in open(consortia_list, "r").readlines()[1:]:
+        lab, initiative = line.strip().split('\t')
+        consortia[lab] = initiative
 
     # get ISO alpha3 country codes
     isos = {}
@@ -122,9 +131,15 @@ if __name__ == '__main__':
 
     # nextstrain metadata
     dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t', dtype='str')
+    dfN = dfN.rename(columns={'pangolin_lineage': 'pango_lineage'})
+    new_columns = ['code', 'who_variant', 'variant_lineage']
+    for col in new_columns:
+        if col in dfN.columns.tolist():
+            dfN = dfN.drop(columns=[col])
     dfN.insert(4, 'code', '')
     dfN.insert(1, 'who_variant', '')
     dfN.insert(1, 'variant_lineage', '')
+    dfN.insert(1, 'consortium', '')
     dfN.fillna('', inplace=True)
 
     # filter genomes based on date completeness
@@ -149,8 +164,19 @@ if __name__ == '__main__':
         return var_category
 
 
+    def similar(a, b):
+        return SequenceMatcher(None, a, b).ratio()
+
+    def assign_consortia(name):
+        consortium_name = 'Outras iniciativas'
+        for lab in consortia.keys():
+            if similar(name, lab) > 0.75:
+                consortium_name = consortia[lab]
+        return consortium_name
+
     dfN['variant_lineage'] = dfN['pango_lineage'].apply(lambda x: variant_category(x))
     dfN['who_variant'] = dfN['variant_lineage'].apply(lambda x: x.split(' ')[0] if '(' in x else x)
+    dfN['consortium'] = dfN['submitting_lab'].apply(lambda x: assign_consortia(x))
 
     list_columns = dfN.columns.values  # list of column in the original metadata file
 
@@ -318,6 +344,13 @@ if __name__ == '__main__':
             outputDF = outputDF.append(dict_row, ignore_index=True)
 
     # write new metadata files
+    root = [('Wuhan/Hu-1/2019', '2019-12-26'), ('Wuhan/WH01/2019', '2019-12-26')]
+    for genome in root:
+        strain, date = genome
+        if strain not in outputDF['strain'].tolist():
+            dict_row = {'strain': strain, 'date': date}
+            outputDF = outputDF.append(dict_row, ignore_index=True)
+
     outputDF = outputDF.drop(columns=['region'])
     outputDF.to_csv(output1, sep='\t', index=False)
 
