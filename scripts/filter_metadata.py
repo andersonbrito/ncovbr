@@ -24,6 +24,7 @@ if __name__ == '__main__':
     parser.add_argument("--metadata1", required=True, help="Metadata file from NextStrain")
     parser.add_argument("--metadata2", required=False, help="Custom lab metadata file")
     parser.add_argument("--variants", required=True, help="Variant-lineage TSV file")
+    parser.add_argument("--pango", required=True, help="Pango lineage report output in CSV")
     parser.add_argument("--consortia", required=True, help="Lab-Consoritum TSV file")
     parser.add_argument("--filter", required=False, nargs='+', type=str,
                         help="List of filters for tagged rows in lab metadata")
@@ -35,16 +36,18 @@ if __name__ == '__main__':
     metadata1 = args.metadata1
     metadata2 = args.metadata2
     variants_list = args.variants
+    pango_file = args.pango
     consortia_list = args.consortia
     filterby = args.filter
     output1 = args.output1
     output2 = args.output2
 
-    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/run6_20210928_itps3/'
+    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/test_pangolin/'
     # genomes = path + 'pre-analyses/temp_sequences.fasta'
     # metadata1 = path + 'pre-analyses/metadata_nextstrain.tsv'
     # metadata2 = path + 'pre-analyses/sequencing_metadata.xlsx'
     # variants_list = path + 'config/who_variants.tsv'
+    # pango_file = path + 'pre-analyses/lineage_report.csv'
     # consortia_list = path + 'config/consortia.tsv'
     # filterby = ['caribe', 'test']
     # output1 = path + 'pre-analyses/metadata_filtered.tsv'
@@ -54,11 +57,40 @@ if __name__ == '__main__':
     today = time.strftime('%Y-%m-%d', time.gmtime())
     min_date = '2019-12-15'
 
+
+    def load_table(file):
+        df = ''
+        if str(file).split('.')[-1] == 'tsv':
+            separator = '\t'
+            df = pd.read_csv(file, encoding='utf-8', sep=separator, dtype='str')
+        elif str(file).split('.')[-1] == 'csv':
+            separator = ','
+            df = pd.read_csv(file, encoding='utf-8', sep=separator, dtype='str')
+        elif str(file).split('.')[-1] in ['xls', 'xlsx']:
+            df = pd.read_excel(file, index_col=None, header=0, sheet_name=0, dtype='str')
+            df.fillna('', inplace=True)
+        else:
+            print('Wrong file format. Compatible file formats: TSV, CSV, XLS, XLSX')
+            exit()
+        return df
+
+
     variants = {}
     for line in open(variants_list, "r").readlines()[1:]:
         variant, lineage = line.strip().split('\t')
         varlin = variant + ' (' + lineage + ')'
         variants[lineage] = varlin
+
+    lineages = {}
+    if pango_file not in ['', None]:
+        dfP = load_table(pango_file)
+        dfP = dfP[['taxon', 'lineage']]
+        dfP['taxon'] = dfP['taxon'].str.replace('hCoV-19/', '')
+        for idx, row in dfP.iterrows():
+            strain_name = dfP.loc[idx, 'taxon']
+            pango_lineage = dfP.loc[idx, 'lineage']
+            if pango_lineage != 'None':
+                lineages[strain_name] = pango_lineage
 
     consortia = {}
     for line in open(consortia_list, "r").readlines()[1:]:
@@ -130,7 +162,8 @@ if __name__ == '__main__':
     }
 
     # nextstrain metadata
-    dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t', dtype='str')
+    # dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t', dtype='str')
+    dfN = load_table(metadata1)
     dfN = dfN.rename(columns={'pangolin_lineage': 'pango_lineage'})
     dfN['strain'] = dfN['strain'].str.replace('hCoV-19/', '')
 
@@ -156,6 +189,12 @@ if __name__ == '__main__':
     dfN['turnaround_time'] = dfN['date_submitted'].sub(dfN['date'], axis=0)
     dfN['turnaround_time'] = dfN['turnaround_time'].apply(lambda x: str(x).split()[0])  # reformat
 
+    # fix lineages
+    def fix_lineages(strain):
+        new_lineage = dfN.loc[dfN['strain'] == strain, 'pango_lineage'].item()
+        if strain in lineages:
+            new_lineage = lineages[strain]
+        return new_lineage
 
     # add tag of variant category
     def variant_category(lineage):
@@ -176,6 +215,7 @@ if __name__ == '__main__':
                 consortium_name = consortia[lab]
         return consortium_name
 
+    dfN['pango_lineage'] = dfN['strain'].apply(lambda x: fix_lineages(x))  
     dfN['variant_lineage'] = dfN['pango_lineage'].apply(lambda x: variant_category(x))
     dfN['who_variant'] = dfN['variant_lineage'].apply(lambda x: x.split(' ')[0] if '(' in x else x)
     dfN['consortium'] = dfN['submitting_lab'].apply(lambda x: assign_consortia(x))
@@ -297,8 +337,11 @@ if __name__ == '__main__':
 
             # add lineage
             lineage = ''
-            if dfL.loc[idx, 'pango_lineage'] != '':
-                lineage = dfL.loc[idx, 'pango_lineage']
+            if strain in lineages:
+                lineage = lineages[strain]
+            else:
+                if dfL.loc[idx, 'pango_lineage'] != '':
+                    lineage = dfL.loc[idx, 'pango_lineage']
             dict_row['pango_lineage'] = lineage
 
             # variant classication (VOI, VOC, VHC)

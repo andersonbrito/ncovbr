@@ -456,12 +456,12 @@ if __name__ == '__main__':
                     variant_dict[who_var].append(varlin)
 
     variant_hues = {
-        'Alpha': 40, # magentas
-        'Beta': 80, # purples
+        'Alpha': 50, # magentas
+        'Beta': 90, # purples
         'Gamma': 220, # blues
         'Delta': 0, # reds
         'Lambda': 180, #cyans
-        'Mu': 120 # greens
+        'Mu': 130 # greens
         }
 
     who_hex = {'Outras variantes': '#808080'}
