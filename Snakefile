@@ -31,6 +31,7 @@ rule files:
 		ignore = "config/remove.txt",
 		reference = "config/reference.gb",
 		geoscheme = "config/geoscheme.tsv",
+		geography = "config/fix_geography.tsv",
 		variants = "config/who_variants.tsv",
 		consortia = "config/consortia.tsv",
 		colour_grid = "config/colour_grid.html",
@@ -101,6 +102,7 @@ rule filter_metadata:
 		genomes = rules.add_sequences.output.sequences,
 		metadata1 = files.full_metadata,
 		metadata2 = rules.merge_metadata.output.merged_metadata,
+		geography = files.geography,
 		variants = files.variants,
 		lineages = files.pango_lineages,
 		consortia = files.consortia
@@ -115,6 +117,7 @@ rule filter_metadata:
 			--genomes {input.genomes} \
 			--metadata1 {input.metadata1} \
 			--metadata2 {input.metadata2} \
+			--geography {input.geography} \
 			--variants {input.variants} \
 			--pango {input.lineages} \
 			--consortia {input.consortia} \
@@ -445,7 +448,7 @@ rule tip_frequencies:
     log:
         "results/tip_frequencies.txt"
     params:
-        min_date = 2021.6589,
+        min_date = 2021.7356,
         pivot_interval = 1,
         pivot_interval_units = "weeks",
         narrow_bandwidth = 0.01,

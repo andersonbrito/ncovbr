@@ -3,7 +3,7 @@
 # Created by: Anderson Brito
 # Email: andersonfbrito@gmail.com
 # Release date: 2020-03-24
-# Last update: 2021-07-07
+# Last update: 2021-11-13
 
 
 import pycountry_convert as pyCountry
@@ -24,6 +24,7 @@ if __name__ == '__main__':
     parser.add_argument("--metadata1", required=True, help="Metadata file from NextStrain")
     parser.add_argument("--metadata2", required=False, help="Custom lab metadata file")
     parser.add_argument("--variants", required=True, help="Variant-lineage TSV file")
+    parser.add_argument("--geography", required=True, help="TSV file with location names to be fixed")
     parser.add_argument("--pango", required=True, help="Pango lineage report output in CSV")
     parser.add_argument("--consortia", required=True, help="Lab-Consoritum TSV file")
     parser.add_argument("--filter", required=False, nargs='+', type=str,
@@ -36,17 +37,19 @@ if __name__ == '__main__':
     metadata1 = args.metadata1
     metadata2 = args.metadata2
     variants_list = args.variants
+    geo_file = args.geography
     pango_file = args.pango
     consortia_list = args.consortia
     filterby = args.filter
     output1 = args.output1
     output2 = args.output2
 
-    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/test_pangolin/'
+    # path = '/Users/anderson/GLab Dropbox/Anderson Brito/ITpS/projetos_itps/dashboard/nextstrain/run9_20211115_itps6/'
     # genomes = path + 'pre-analyses/temp_sequences.fasta'
     # metadata1 = path + 'pre-analyses/metadata_nextstrain.tsv'
     # metadata2 = path + 'pre-analyses/sequencing_metadata.xlsx'
     # variants_list = path + 'config/who_variants.tsv'
+    # geo_file = path + 'config/fix_geography.tsv'
     # pango_file = path + 'pre-analyses/lineage_report.csv'
     # consortia_list = path + 'config/consortia.tsv'
     # filterby = ['caribe', 'test']
@@ -91,6 +94,16 @@ if __name__ == '__main__':
             pango_lineage = dfP.loc[idx, 'lineage']
             if pango_lineage != 'None':
                 lineages[strain_name] = pango_lineage
+
+    # fix geography
+    geography = {'division': {}, 'location': {}}
+    if geo_file not in ['', None]:
+        dfG = load_table(geo_file)
+        for idx, row in dfG.iterrows():
+            column_name = dfG.loc[idx, 'column']
+            old_name = dfG.loc[idx, 'old']
+            new_name = dfG.loc[idx, 'new']
+            geography[column_name][old_name] = new_name
 
     consortia = {}
     for line in open(consortia_list, "r").readlines()[1:]:
@@ -215,7 +228,19 @@ if __name__ == '__main__':
                 consortium_name = consortia[lab]
         return consortium_name
 
-    dfN['pango_lineage'] = dfN['strain'].apply(lambda x: fix_lineages(x))  
+    # fix lineages
+    def fix_geography(column, location):
+        geolocation = location
+        if geolocation in [None, '']:
+            pass
+        for name in geography[column].keys():
+            if location == name:
+                geolocation = geography[column][location]
+        return geolocation
+
+    dfN['division'] = dfN['division'].apply(lambda x: fix_geography('division', x))
+    dfN['location'] = dfN['location'].apply(lambda x: fix_geography('location', x))
+    dfN['pango_lineage'] = dfN['strain'].apply(lambda x: fix_lineages(x))
     dfN['variant_lineage'] = dfN['pango_lineage'].apply(lambda x: variant_category(x))
     dfN['who_variant'] = dfN['variant_lineage'].apply(lambda x: x.split(' ')[0] if '(' in x else x)
     dfN['consortium'] = dfN['submitting_lab'].apply(lambda x: assign_consortia(x))

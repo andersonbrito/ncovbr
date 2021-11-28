@@ -15,13 +15,13 @@ region	Africa	Middle Africa	-2.494433	21.016337	Angola, Cameroon, Central Africa
 region	Africa	Eastern Africa	-2.139111	36.089406	Burundi, Comoros, Djibouti, Eritrea, Ethiopia, Kenya, Madagascar, Malawi, Mauritius, Mayotte, Mozambique, Réunion, Rwanda, Seychelles, Somalia, South Sudan, Tanzania, Uganda, Zambia, Zimbabwe
 region	Africa	Southern Africa	-25.274833	23.448701	Botswana, Eswatini, Eswatini (Swaziland), Lesotho, Namibia, South Africa
 region	America	North America	49.384464	-95.153337	Bermuda, Canada, Greenland, Saint Pierre and Miquelon, United States of America, USA
-region	America	Central America	17.136938	-93.867420	Belize, Costa Rica, El Salvador, Guatemala, Honduras, Mexico, Nicaragua, Panama
+region	America	Central America	17.136938	-93.86742	Belize, Costa Rica, El Salvador, Guatemala, Honduras, Mexico, Nicaragua, Panama
 region	America	Caribbean	18.087038	-67.891559	Anguilla, Antigua and Barbuda, Aruba, Bahamas, Barbados, Bonaire, Sint Eustatius and Saba, British Virgin Islands, Cayman Islands, Cuba, Curaçao, Dominica, Dominican Republic, Grenada, Guadeloupe, Haiti, Jamaica, Martinique, Montserrat, Puerto Rico, Saint Barthélemy, Saint Kitts and Nevis, Saint Lucia, Saint Martin (French part), Saint Vincent and the Grenadines, Sint Maarten (Dutch part), Trinidad and Tobago, Turks and Caicos Islands, United States Virgin Islands
 region	America	South America	-20.172215	-58.168541	Argentina, Bolivia, Brazil, Chile, Colombia, Ecuador, Falkland Islands, French Guiana, Guyana, Paraguay, Peru, South Georgia and the South Sandwich Islands, Suriname, Uruguay, Venezuela
 
-country	Brazil	Brazil-North	-4.58985	-57.391623	Acre, Amapa, Amazonas, Amazonas BR, Para, Rondonia, Roraima, Tocantins, North
-country	Brazil	Brazil-Northeast	-8.717633	-41.342772	Alagoas, Bahia, Ceara, Ceará, Maranhao, Maranhão, Paraiba, Piaui, Pernambuco, Rio Grande do Norte, Sergipe, Northeast
+country	Brazil	Brazil-North	-4.58985	-57.391623	Acre, Amapa, Amazonas, Amazonas BR, Para, Pará, Rondônia, Rondonia, Roraima, Tocantins, North
+country	Brazil	Brazil-Northeast	-8.717633	-41.342772	Alagoas, Bahia, Ceara, Ceará, Maranhao, Maranhão, Paraiba, Paraíba, Piauí, Piaui, Pernambuco, Rio Grande do Norte, Sergipe, Northeast
 country	Brazil	Brazil-Center West	-18.039469	-53.07199	Goias, Goiás, Mato Grosso, Mato Grosso do Sul, Distrito Federal
-country	Brazil	Brazil-Southeast	-22.406285	-44.809388	Espirito Santo, Minas Gerais, Rio de Janeiro, Sao Paulo, São Paulo
+country	Brazil	Brazil-Southeast	-22.406285	-44.809388	Espirito Santo, Espírito Santo, Minas Gerais, Rio de Janeiro, Sao Paulo, São Paulo
 country	Brazil	Brazil-South	-27.719514	-51.308815	Parana, Paraná, Santa Catarina, Rio Grande do Sul
 country	Brazil	Brazil-Unknown	-12.860966	-50.511161	Unknown
