@@ -448,7 +448,7 @@ rule tip_frequencies:
     log:
         "results/tip_frequencies.txt"
     params:
-        min_date = 2021.7356,
+        min_date = 2021.774,
         pivot_interval = 1,
         pivot_interval_units = "weeks",
         narrow_bandwidth = 0.01,
