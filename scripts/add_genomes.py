@@ -81,13 +81,13 @@ if __name__ == '__main__':
                     try:
                         entry = json.loads(line)
                         id = entry['covv_virus_name']
-                        id = id.split('|')[0].replace('hCoV-19/', '')
+                        id = id.split('|')[0]#.replace('hCoV-19/', '')
                         if len(id.split('/')) == 3:
                             country, index, year = id.split('/')
                         elif len(id.split('/')) == 4:
                             host, country, index, year = id.split('/')
                         country = country.replace(' ', '').replace('\'', '-').replace('_', '')
-                        id = '/'.join([country, index, year])
+                        id = '/'.join(['hCoV-19', country, index, year])
 
                         all_sequences.append(id)
                         if id not in remove_sequences:
@@ -107,13 +107,13 @@ if __name__ == '__main__':
         else:
             for fasta in SeqIO.parse(open(genomes), 'fasta'):
                 id, seq = fasta.description, fasta.seq
-                id = id.split('|')[0].replace('hCoV-19/', '')
+                id = id.split('|')[0]#.replace('hCoV-19/', '')
                 if len(id.split('/')) == 3:
                     country, index, year = id.split('/')
                 elif len(id.split('/')) == 4:
                     host, country, index, year = id.split('/')
                 country = country.replace(' ', '').replace('\'', '-').replace('_', '')
-                id = '/'.join([country, index, year])
+                id = '/'.join(['hCoV-19', country, index, year])
                 all_sequences.append(id)
 
                 if id not in remove_sequences:

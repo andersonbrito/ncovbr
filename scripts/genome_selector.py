@@ -70,7 +70,7 @@ if __name__ == '__main__':
     # nextstrain metadata
     dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t', dtype=str)
     dfN.fillna('', inplace=True) # replace empty values by blank
-    dfN['strain'] = dfN['strain'].str.replace('hCoV-19/', '', regex=False)
+#     dfN['strain'] = dfN['strain'].str.replace('hCoV-19/', '', regex=False)
 
 
     # print(dfN['strain'].tolist())

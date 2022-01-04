@@ -458,7 +458,7 @@ if __name__ == '__main__':
     variant_hues = {
         'Alpha': 50, # yellows
         'Beta': 90, # yellow-greens
-        'Gamma': 220, # blues
+        'Gama': 220, # blues
         'Delta': 0, # reds
         'Omicron': 130, # greens
         'Lambda': 180, #cyans

@@ -88,7 +88,7 @@ if __name__ == '__main__':
     if pango_file not in ['', None]:
         dfP = load_table(pango_file)
         dfP = dfP[['taxon', 'lineage']]
-        dfP['taxon'] = dfP['taxon'].str.replace('hCoV-19/', '')
+#         dfP['taxon'] = dfP['taxon'].str.replace('hCoV-19/', '')
         for idx, row in dfP.iterrows():
             strain_name = dfP.loc[idx, 'taxon']
             pango_lineage = dfP.loc[idx, 'lineage']
@@ -178,7 +178,7 @@ if __name__ == '__main__':
     # dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t', dtype='str')
     dfN = load_table(metadata1)
     dfN = dfN.rename(columns={'pangolin_lineage': 'pango_lineage'})
-    dfN['strain'] = dfN['strain'].str.replace('hCoV-19/', '')
+#     dfN['strain'] = dfN['strain'].str.replace('hCoV-19/', '')
 
     new_columns = ['code', 'who_variant', 'variant_lineage']
     for col in new_columns:
@@ -228,7 +228,7 @@ if __name__ == '__main__':
                 consortium_name = consortia[lab]
         return consortium_name
 
-    # fix lineages
+    # fix geography
     def fix_geography(column, location):
         geolocation = location
         if geolocation in [None, '']:
